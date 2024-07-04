@@ -5,7 +5,7 @@ import StoppageForm from './component/stoppageform';
 import FileReader from './component/FileReader';
 import StoppageProcessor from './component/StoppageProcessor';
 import 'leaflet/dist/leaflet.css';
-import { Box, Typography,TextField, colors } from '@mui/material';
+import { Box, Typography,TextField, colors,Grid} from '@mui/material';
 
 function App() {
   const [data,setData] = useState([]);
@@ -28,41 +28,51 @@ function App() {
 
   return (
     <>
-      <div>
-      <h1>Vehicle Stoppage Identification And Visualization</h1>
-      <Typography variant="h5" gutterBottom>
-        Enter a URL to view data on the map
+      <Box p={2}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Vehicle Stoppage Identification And Visualization
       </Typography>
-      <Box>
-          <TextField 
-            label="Enter CSV URL" 
-            variant="outlined" 
-            value={url} 
-            onChange={handleUrlChange} 
-            fullWidth 
+      <Grid container spacing={2} justifyContent="center">
+        <Grid item xs={12} md={8}>
+          <Typography variant="h5" gutterBottom>
+            Enter a URL to view data on the map
+          </Typography>
+          <TextField
+            label="Enter CSV URL"
+            variant="outlined"
+            value={url}
+            onChange={handleUrlChange}
+            fullWidth
             InputLabelProps={{
               style: { color: 'white' },
             }}
             InputProps={{
-              style: { 
-                color: 'white', 
+              style: {
+                color: 'white',
                 backgroundColor: 'gray',
                 padding: '10px',
                 borderRadius: '4px',
               },
             }}
           />
-        </Box>
-        <Typography variant="body1" gutterBottom>
-          Default URL: <a href={defaultUrl} target="_blank" rel="noopener noreferrer" style={urlStyle}>{defaultUrl}</a>
-        </Typography>
-        <br/>
-      <StoppageForm threshold={threshold} setThreshold={setThreshold} />
-      <br />
-      <FileReader url={url} setData={setData} />
-      <StoppageProcessor data={data} setPath={setPath} setStoppages={setStoppages} threshold={threshold} />
-      <Mapfunction path={path} stoppages={stoppages} />
-    </div>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Typography variant="body1" gutterBottom>
+            Default URL: <a href={defaultUrl} target="_blank" rel="noopener noreferrer" style={urlStyle}>{defaultUrl}</a>
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <StoppageForm threshold={threshold} setThreshold={setThreshold} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <FileReader url={url} setData={setData} />
+        </Grid>
+        <Grid item xs={12}>
+          <StoppageProcessor data={data} setPath={setPath} setStoppages={setStoppages} threshold={threshold} />
+          <Mapfunction path={path} stoppages={stoppages} />
+        </Grid>
+      </Grid>
+    </Box>
     </>
   );
 }
